@@ -1,0 +1,46 @@
+.table-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; ;
+}
+
+.passengers-table {
+    height: 100%;
+    width: 60vw;
+    margin-bottom: 20px;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+} 
+
+.passengers-table th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+
+.passengers-table td {
+    border: 1px solid #dddddd;
+    padding: 5px;
+}
+
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.table-controls__pages {
+    font-size: 18px;
+}
+
+.table-controls__btn {
+    width: 100px;
+    margin: 5px;
+    border: none;
+    background: #333333;
+    padding: 10px;
+    font-size: 20px;
+    color: #fff
+}
