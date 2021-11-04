@@ -9,8 +9,14 @@ function Groups() {
 	const [groups, setGroups] = useState({});
 
 	useEffect(() => {
-		setID("");
-		setGroups({});
+		const groupsCopy = { ...groups };
+		const localCopy = { ...localStorage };
+		for (var key in localCopy) {
+			groupsCopy[key] = localCopy[key].split(",");
+		}
+		setGroups(groupsCopy);
+		console.log(groupsCopy["gag"]);
+		console.log(groupsCopy["gag"].length);
 	}, []);
 
 	const buttonHandler = () => {
@@ -19,8 +25,13 @@ function Groups() {
 		if (!(groupID in groupsCopy)) {
 			// Если группы новая
 			groupsCopy[groupID] = [id];
+			localStorage.setItem(groupID, [id]);
 		} else {
-			groupsCopy[groupID].push(id); // Если ключ есть, просто добавляем id в группу
+			if (!groupsCopy[groupID].includes(id)) {
+				groupsCopy[groupID].push(id); // Если ключ есть, просто добавляем id в группу
+				const prevData = localStorage.getItem(groupID);
+				localStorage.setItem(groupID, [prevData, id]);
+			}
 		}
 		setGroups(groupsCopy);
 		console.log(groups);
@@ -39,7 +50,7 @@ function Groups() {
 					onChange={(e) => setID(e.target.value)}
 					autoComplete="off"></input>
 			</form>
-			{id !== "" && (
+			{(id !== "" || groupID !== "") && (
 				<form>
 					<input
 						id="_group_id"
