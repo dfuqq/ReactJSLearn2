@@ -1,0 +1,39 @@
+.groups-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.groups-input {
+	width: 30vw;
+	border: none;
+	border-bottom: 1px solid #333333;
+	padding-bottom: 15px;
+	outline: none;
+	font-size: 20px;
+	padding: 0 20px;
+	margin-bottom: 20px;
+}
+
+.groups-card {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #000000;
+	border-radius: 3px;
+	padding: 10px;
+	font-size: 20px;
+	width: 30vw;
+}
+
+.groups-button {
+	width: 200px;
+	margin: 5px;
+	border: none;
+	background: #333333;
+	padding: 10px;
+	font-size: 20px;
+	color: #fff;
+}
