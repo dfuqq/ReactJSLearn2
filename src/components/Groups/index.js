@@ -9,26 +9,25 @@ function Groups() {
 	const [groups, setGroups] = useState({});
 
 	useEffect(() => {
-		const groupsCopy = { ...groups };
+		const initialGroups = {};
 		const localCopy = { ...localStorage };
 		for (var key in localCopy) {
-			groupsCopy[key] = localCopy[key].split(",");
+			initialGroups[key] = localCopy[key].split(",");
 		}
-		setGroups(groupsCopy);
-		console.log(groupsCopy["gag"]);
-		console.log(groupsCopy["gag"].length);
+		setGroups(initialGroups);
 	}, []);
 
 	const buttonHandler = () => {
 		const groupsCopy = { ...groups };
 
 		if (!(groupID in groupsCopy)) {
-			// Если группы новая
+			// if group name not exists
 			groupsCopy[groupID] = [id];
 			localStorage.setItem(groupID, [id]);
 		} else {
 			if (!groupsCopy[groupID].includes(id)) {
-				groupsCopy[groupID].push(id); // Если ключ есть, просто добавляем id в группу
+				// if group name already exists and id not in group name
+				groupsCopy[groupID].push(id);
 				const prevData = localStorage.getItem(groupID);
 				localStorage.setItem(groupID, [prevData, id]);
 			}
