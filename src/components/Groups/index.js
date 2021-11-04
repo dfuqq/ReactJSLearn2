@@ -14,11 +14,15 @@ function Groups() {
 	}, []);
 
 	const buttonHandler = () => {
-		if (!(groupID in groups)) {
-			groups[groupID] = [id];
+		const groupsCopy = { ...groups };
+
+		if (!(groupID in groupsCopy)) {
+			// Если группы новая
+			groupsCopy[groupID] = [id];
 		} else {
-			groups[groupID].push(id);
+			groupsCopy[groupID].push(id); // Если ключ есть, просто добавляем id в группу
 		}
+		setGroups(groupsCopy);
 		console.log(groups);
 	};
 
