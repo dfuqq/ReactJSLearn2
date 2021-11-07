@@ -1,0 +1,26 @@
+.groups-card {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #000000;
+	border-radius: 3px;
+	padding: 10px;
+	font-size: 20px;
+	width: 40vw;
+}
+
+.groups-input__card {
+	width: 90%;
+	border: none;
+	border-bottom: 1px solid #333333;
+	outline: none;
+	font-size: 16px;
+	margin: 5px 0;
+}
+
+.groups-card__members {
+	padding: 5px 0;
+	font-size: 16px;
+	font-weight: 400;
+}
