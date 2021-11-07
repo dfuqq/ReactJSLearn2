@@ -1,0 +1,20 @@
+.groups-input {
+	width: 30vw;
+	border: none;
+	border-bottom: 1px solid #333333;
+	padding-bottom: 15px;
+	outline: none;
+	font-size: 20px;
+	padding: 0 20px;
+	margin-bottom: 20px;
+}
+
+.groups-button {
+	width: 200px;
+	margin: 5px;
+	border: none;
+	background: #333333;
+	padding: 10px;
+	font-size: 20px;
+	color: #fff;
+}
