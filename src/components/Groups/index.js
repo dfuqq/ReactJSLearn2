@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "react-query";
+
+import { fetchPassengerByID } from "../../services/api";
+import GroupForm from "../GroupForm";
 
 import "./styles.css";
 
@@ -17,59 +21,77 @@ function Groups() {
 		setGroups(initialGroups);
 	}, []);
 
-	const buttonHandler = () => {
+	const { data } = useQuery(
+		["passengerID", id],
+		() => id && fetchPassengerByID(id),
+		{ retry: false }
+	);
+
+	const addID = (e) => {
+		setID(e.currentTarget.value);
+	};
+
+	const addGroupID = (e) => {
+		setGroupID(e.currentTarget.value);
+	};
+
+	const createGroup = () => {
 		const groupsCopy = { ...groups };
 
-		if (!(groupID in groupsCopy)) {
-			// if group name not exists
-			groupsCopy[groupID] = [id];
-			localStorage.setItem(groupID, [id]);
-		} else {
-			if (!groupsCopy[groupID].includes(id)) {
-				// if group name already exists and id not in group name
-				groupsCopy[groupID].push(id);
-				const prevData = localStorage.getItem(groupID);
-				localStorage.setItem(groupID, [prevData, id]);
+		if (data) {
+			if (!(groupID in groupsCopy)) {
+				// if group name not exists
+				groupsCopy[groupID] = [data.name];
+				localStorage.setItem(groupID, [data.name]);
+			} else {
+				if (!groupsCopy[groupID].includes(data.name)) {
+					// if group name already exists and id not in group name
+					groupsCopy[groupID].push(data.name);
+					const prevData = localStorage.getItem(groupID);
+					localStorage.setItem(groupID, [prevData, data.name]);
+				}
 			}
+			setGroups(groupsCopy);
 		}
-		setGroups(groupsCopy);
-		console.log(groups);
 	};
 
 	return (
 		<div className="groups-container">
 			<h1>Groups</h1>
-			<form>
-				<input
-					id="_id"
-					name="_id"
-					type="text"
-					className="groups-input"
-					placeholder="Enter ID"
-					onChange={(e) => setID(e.target.value)}
-					autoComplete="off"></input>
-			</form>
-			{(id !== "" || groupID !== "") && (
-				<form>
-					<input
-						id="_group_id"
-						name="_group_id"
-						type="text"
-						className="groups-input"
-						placeholder="Enter group name"
-						onChange={(e) => setGroupID(e.target.value)}
-						autoComplete="off"></input>
-				</form>
-			)}
 
-			<button className="groups-button" onClick={buttonHandler}>
-				Create Group
-			</button>
+			<GroupForm
+				id={id}
+				groupID={groupID}
+				addID={addID}
+				addGroupID={addGroupID}
+				createGroup={createGroup}
+			/>
 
 			{Object.keys(groups).map((key) => (
-				<div className="groups-card">
+				<div className="groups-card" key={key}>
 					<span>{key}</span>
-					<span>Members: {groups[key].length}</span>
+					<span className="groups-card__members">
+						Members: {groups[key].length}
+					</span>
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+							createGroup();
+						}}>
+						<input
+							id="_id"
+							name="_id"
+							type="text"
+							className="groups-input__card"
+							placeholder="Enter ID"
+							autoComplete="off"
+							data-key={key}
+							onChange={(e) => {
+								setID(e.currentTarget.value);
+								setGroupID(e.currentTarget.dataset.key);
+							}}
+						/>
+					</form>
 				</div>
 			))}
 		</div>

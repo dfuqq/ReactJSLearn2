@@ -16,6 +16,20 @@
 	margin-bottom: 20px;
 }
 
+.groups-button {
+	width: 200px;
+	margin: 5px;
+	border: none;
+	background: #333333;
+	padding: 10px;
+	font-size: 20px;
+	color: #fff;
+}
+
+.groups-button:disabled {
+	background: #999999;
+}
+
 .groups-card {
 	display: flex;
 	flex-direction: column;
@@ -28,12 +42,17 @@
 	width: 30vw;
 }
 
-.groups-button {
-	width: 200px;
-	margin: 5px;
+.groups-input__card {
+	width: 60%;
 	border: none;
-	background: #333333;
-	padding: 10px;
-	font-size: 20px;
-	color: #fff;
+	border-bottom: 1px solid #333333;
+	outline: none;
+	font-size: 16px;
+	margin: 5px 0;
+}
+
+.groups-card__members {
+	padding: 5px 0;
+	font-size: 16px;
+	font-weight: 400;
 }
