@@ -2,7 +2,14 @@ import "./styles.css";
 
 import { Fragment } from "react";
 
-function GroupForm({ id, groupID, addID, addGroupID, createGroup }) {
+function GroupForm({
+	id,
+	groupID,
+	addID,
+	addGroupID,
+	createGroup,
+	buttonAvailable,
+}) {
 	return (
 		<Fragment>
 			<form onSubmit={(e) => e.preventDefault()}>
@@ -28,7 +35,10 @@ function GroupForm({ id, groupID, addID, addGroupID, createGroup }) {
 				</form>
 			)}
 
-			<button className="groups-button" onClick={createGroup}>
+			<button
+				className="groups-button"
+				disabled={groupID === ""}
+				onClick={createGroup}>
 				Create Group
 			</button>
 		</Fragment>
