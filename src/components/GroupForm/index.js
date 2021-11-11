@@ -5,7 +5,7 @@ import { Fragment } from "react";
 function GroupForm({ id, groupID, addID, addGroupID, createGroup, groups }) {
 	return (
 		<Fragment>
-			<form onSubmit={(e) => e.preventDefault()}>
+			<form>
 				<input
 					id="_id"
 					name="_id"
@@ -16,7 +16,7 @@ function GroupForm({ id, groupID, addID, addGroupID, createGroup, groups }) {
 					autoComplete="off"></input>
 			</form>
 			{(id !== "" || groupID !== "") && (
-				<form onSubmit={(e) => e.preventDefault()}>
+				<form>
 					<input
 						id="_group_id"
 						name="_group_id"
@@ -31,7 +31,8 @@ function GroupForm({ id, groupID, addID, addGroupID, createGroup, groups }) {
 			<button
 				className="groups-button"
 				disabled={groupID === "" || groupID in groups}
-				onClick={createGroup}>
+				onClick={createGroup}
+				type="submit">
 				Create Group
 			</button>
 		</Fragment>
