@@ -1,7 +1,6 @@
 import "./styles.css";
 
 function GroupCard({
-	key,
 	groupName,
 	membersAmount,
 	createGroup,
@@ -14,7 +13,7 @@ function GroupCard({
 	};
 
 	return (
-		<div className="groups-card" key={key}>
+		<div className="groups-card" key={groupName}>
 			<span>{groupName}</span>
 			<span className="groups-card__members">Members: {membersAmount}</span>
 			<form
