@@ -13,20 +13,25 @@ function Groups() {
 
 	const [groups, setGroups] = useState({});
 
-	useEffect(() => {
-		const initialGroups = {};
-		const localCopy = { ...localStorage };
-		for (var group in localCopy) {
-			initialGroups[group] = localCopy[group].split(",");
-		}
-		setGroups(initialGroups);
-	}, []);
+	const [isLoaded, setIsLoaded] = useState(false);
 
 	const { data } = useQuery(
 		["passengerID", id],
 		() => id && fetchPassengerByID(id),
 		{ retry: false }
 	);
+
+	useEffect(() => {
+		const initialGroups = { groups: {} };
+		const localCopy = { ...localStorage };
+		if (JSON.stringify(localCopy).length > 2) {
+			initialGroups["groups"] = localCopy["groups"];
+			initialGroups["groups"] = JSON.parse(initialGroups["groups"]);
+			console.log("Loaded with data");
+		}
+		setGroups(initialGroups);
+		setIsLoaded(true);
+	}, []);
 
 	const addID = (e) => {
 		setID(e.currentTarget.value);
@@ -44,19 +49,20 @@ function Groups() {
 		const groupsCopy = { ...groups };
 
 		if (data) {
-			if (!(groupID in groupsCopy)) {
-				// if group name not exists
-				groupsCopy[groupID] = [id];
-				localStorage.setItem(groupID, [id]);
+			if (!(groupID in groupsCopy["groups"])) {
+				groupsCopy["groups"][groupID] = [id];
+				localStorage.setItem("groups", JSON.stringify(groupsCopy["groups"]));
 			} else {
-				if (!groupsCopy[groupID].includes(id)) {
-					// if group name already exists and id not in group name
-					groupsCopy[groupID].push(id);
-					const prevData = localStorage.getItem(groupID);
-					localStorage.setItem(groupID, [prevData, id]);
+				if (!groupsCopy["groups"][groupID].includes(id)) {
+					groupsCopy["groups"][groupID].push(id);
+					localStorage.setItem("groups", JSON.stringify(groupsCopy["groups"]));
+				} else {
+					console.log("ID already in group");
 				}
 			}
 			setGroups(groupsCopy);
+		} else {
+			console.log("User not found");
 		}
 	};
 
@@ -73,16 +79,17 @@ function Groups() {
 				groups={groups}
 			/>
 
-			{Object.keys(groups).map((group) => (
-				<GroupCard
-					key={group}
-					groupName={group}
-					membersAmount={groups[group]?.length}
-					createGroup={createGroup}
-					addID={addID}
-					takeGroupID={takeGroupID}
-				/>
-			))}
+			{isLoaded &&
+				Object.keys(groups["groups"]).map((group) => (
+					<GroupCard
+						key={group}
+						groupName={group}
+						membersAmount={groups["groups"][group]?.length}
+						createGroup={createGroup}
+						addID={addID}
+						takeGroupID={takeGroupID}
+					/>
+				))}
 		</div>
 	);
 }
