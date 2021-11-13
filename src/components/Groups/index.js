@@ -29,7 +29,6 @@ function Groups() {
 		if (JSON.stringify(localCopy).length > 2) {
 			initialGroups["groups"] = localCopy["groups"];
 			initialGroups["groups"] = JSON.parse(initialGroups["groups"]);
-			console.log("Loaded with data");
 		}
 		setGroups(initialGroups);
 		setIsLoaded(true);
