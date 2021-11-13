@@ -33,37 +33,30 @@ function Groups() {
 		setIsLoaded(true);
 	}, []);
 
-	const addID = (e) => {
-		setID(e.currentTarget.value);
+	const createNewGroup = () => {
+		const groupsCopy = { ...groups };
+
+		groupsCopy["groups"][groupID] = [];
+		localStorage.setItem("groups", JSON.stringify(groupsCopy["groups"]));
+
+		setGroups(groupsCopy);
 	};
 
-	const addGroupID = (e) => {
-		setGroupID(e.currentTarget.value);
-	};
-
-	const takeGroupID = (e) => {
-		setGroupID(e.currentTarget.dataset.key);
-	};
-
-	const createGroup = () => {
+	const addUser = (cardGroupID) => {
 		const groupsCopy = { ...groups };
 
 		if (data) {
-			if (!(groupID in groupsCopy["groups"])) {
-				groupsCopy["groups"][groupID] = [id];
+			if (!groupsCopy["groups"][cardGroupID].includes(id)) {
+				groupsCopy["groups"][cardGroupID].push(id);
 				localStorage.setItem("groups", JSON.stringify(groupsCopy["groups"]));
 			} else {
-				if (!groupsCopy["groups"][groupID].includes(id)) {
-					groupsCopy["groups"][groupID].push(id);
-					localStorage.setItem("groups", JSON.stringify(groupsCopy["groups"]));
-				} else {
-					console.log("ID already in group");
-				}
+				console.log("ID already in group");
 			}
-			setGroups(groupsCopy);
 		} else {
-			console.log("User not found");
+			console.log("Wrong ID");
 		}
+
+		setGroups(groupsCopy);
 	};
 
 	return (
@@ -71,11 +64,9 @@ function Groups() {
 			<h1>Groups</h1>
 
 			<GroupForm
-				id={id}
 				groupID={groupID}
-				addID={addID}
-				addGroupID={addGroupID}
-				createGroup={createGroup}
+				setGroupID={setGroupID}
+				createNewGroup={createNewGroup}
 				groups={groups}
 			/>
 
@@ -85,9 +76,8 @@ function Groups() {
 						key={group}
 						groupName={group}
 						membersAmount={groups["groups"][group]?.length}
-						createGroup={createGroup}
-						addID={addID}
-						takeGroupID={takeGroupID}
+						setID={setID}
+						addUser={addUser}
 					/>
 				))}
 		</div>
