@@ -1,10 +1,28 @@
 import "./styles.css";
 
-function GroupCard({ setID, groupName, membersAmount, addUser }) {
+function GroupCard({ setID, groupName, membersAmount, addUser, removeGroup }) {
+	const showUsers = () => {
+		console.log("showed");
+	};
+
 	return (
 		<div className="groups-card" key={groupName}>
-			<span>{groupName}</span>
-			<span className="groups-card__members">Members: {membersAmount}</span>
+			<div className="groups-header">
+				<span>{groupName}</span>
+				<button
+					className="groups-delete-btn"
+					onClick={() => removeGroup(groupName)}>
+					Delete
+				</button>
+			</div>
+			<div className="groups-card__members">
+				<span className="groups-card__members-count">
+					Members: {membersAmount}
+				</span>
+				<button className="groups-card__members-show-btn" onClick={showUsers}>
+					Show
+				</button>
+			</div>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();

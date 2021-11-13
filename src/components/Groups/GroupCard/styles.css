@@ -10,6 +10,42 @@
 	width: 40vw;
 }
 
+.groups-header {
+	display: flex;
+	justify-content: space-between;
+	padding-right: 10px;
+}
+
+.groups-delete-btn {
+	width: 75px;
+	border: none;
+	background: #990000;
+	font-size: 14px;
+	color: #fff;
+}
+
+.groups-card__members {
+	display: flex;
+	justify-content: space-between;
+	padding-right: 10px;
+	margin-top: 10px;
+}
+
+.groups-card__members-count {
+	padding: 5px 0;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.groups-card__members-show-btn {
+	width: 75px;
+	height: 25px;
+	border: none;
+	background: #333;
+	font-size: 14px;
+	color: #fff;
+}
+
 .groups-input__card {
 	width: 90%;
 	border: none;
@@ -17,10 +53,4 @@
 	outline: none;
 	font-size: 16px;
 	margin: 5px 0;
-}
-
-.groups-card__members {
-	padding: 5px 0;
-	font-size: 16px;
-	font-weight: 400;
 }

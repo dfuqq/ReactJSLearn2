@@ -63,6 +63,13 @@ function Groups() {
 		setGroups(groupsCopy);
 	};
 
+	const removeGroup = (cardGroupID) => {
+		const groupsChange = { ...groups };
+		delete groupsChange["groups"][cardGroupID];
+		localStorage.setItem("groups", JSON.stringify(groupsChange["groups"]));
+		setGroups(groupsChange);
+	};
+
 	return (
 		<div className="groups-container">
 			<h1>Groups</h1>
@@ -85,6 +92,7 @@ function Groups() {
 						membersAmount={groups["groups"][group]?.length}
 						setID={setID}
 						addUser={addUser}
+						removeGroup={removeGroup}
 					/>
 				))}
 		</div>
