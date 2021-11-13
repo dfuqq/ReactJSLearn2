@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 
 import { fetchPassengerByID } from "../../services/api";
-import GroupCard from "../GroupCard";
-import GroupForm from "../GroupForm";
+import GroupCard from "./GroupCard";
+import GroupForm from "./GroupForm";
 
 import "./styles.css";
 
