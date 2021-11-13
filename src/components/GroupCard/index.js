@@ -1,17 +1,6 @@
 import "./styles.css";
 
-function GroupCard({
-	groupName,
-	membersAmount,
-	createGroup,
-	addID,
-	takeGroupID,
-}) {
-	const newID = (e) => {
-		addID(e);
-		takeGroupID(e);
-	};
-
+function GroupCard({ setID, groupName, membersAmount, addUser }) {
 	return (
 		<div className="groups-card" key={groupName}>
 			<span>{groupName}</span>
@@ -19,7 +8,8 @@ function GroupCard({
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
-					createGroup();
+					addUser(e.target._id.dataset.key);
+					e.target._id.value = "";
 				}}>
 				<input
 					id="_id"
@@ -29,7 +19,7 @@ function GroupCard({
 					placeholder="Enter ID"
 					autoComplete="off"
 					data-key={groupName}
-					onChange={(e) => newID(e)}
+					onChange={(e) => setID(e.currentTarget.value)}
 				/>
 			</form>
 		</div>
