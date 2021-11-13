@@ -14,6 +14,8 @@ function Groups() {
 	const [groups, setGroups] = useState({});
 
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [isUserExists, setIsUserExists] = useState(true);
+	const [isInGroup, setIsInGroup] = useState(false);
 
 	const { data } = useQuery(
 		["passengerID", id],
@@ -44,16 +46,18 @@ function Groups() {
 
 	const addUser = (cardGroupID) => {
 		const groupsCopy = { ...groups };
+		setIsUserExists(true);
+		setIsInGroup(false);
 
 		if (data) {
 			if (!groupsCopy["groups"][cardGroupID].includes(id)) {
 				groupsCopy["groups"][cardGroupID].push(id);
 				localStorage.setItem("groups", JSON.stringify(groupsCopy["groups"]));
 			} else {
-				console.log("ID already in group");
+				setIsInGroup(true);
 			}
 		} else {
-			console.log("Wrong ID");
+			setIsUserExists(false);
 		}
 
 		setGroups(groupsCopy);
@@ -69,6 +73,9 @@ function Groups() {
 				createNewGroup={createNewGroup}
 				groups={groups}
 			/>
+
+			{!data && !isUserExists && <span>User not found!</span>}
+			{isInGroup && <span>User already exists!</span>}
 
 			{isLoaded &&
 				Object.keys(groups["groups"]).map((group) => (
