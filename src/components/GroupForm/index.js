@@ -2,37 +2,30 @@ import "./styles.css";
 
 import { Fragment } from "react";
 
-function GroupForm({ id, groupID, addID, addGroupID, createGroup, groups }) {
+function GroupForm({ groupID, setGroupID, createNewGroup, groups }) {
 	return (
 		<Fragment>
-			<form>
+			<form
+				className="groups-form"
+				onSubmit={(e) => {
+					e.preventDefault();
+					createNewGroup();
+					e.target._group_id.value = "";
+				}}>
 				<input
-					id="_id"
-					name="_id"
+					id="_group_id"
+					name="_group_id"
 					type="text"
 					className="groups-input"
-					placeholder="Enter ID"
-					onChange={addID}
+					placeholder="Enter group name"
+					onChange={(e) => setGroupID(e.currentTarget.value)}
 					autoComplete="off"></input>
 			</form>
-			{(id !== "" || groupID !== "") && (
-				<form>
-					<input
-						id="_group_id"
-						name="_group_id"
-						type="text"
-						className="groups-input"
-						placeholder="Enter group name"
-						onChange={addGroupID}
-						autoComplete="off"></input>
-				</form>
-			)}
 
 			<button
 				className="groups-button"
-				disabled={groupID === "" || groupID in groups}
-				onClick={createGroup}
-				type="submit">
+				disabled={groupID === "" || groupID in groups["groups"]}
+				onClick={createNewGroup}>
 				Create Group
 			</button>
 		</Fragment>
