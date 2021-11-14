@@ -67,6 +67,7 @@ function Groups() {
 		delete groupsChange["groups"][cardGroupID];
 		localStorage.setItem("groups", JSON.stringify(groupsChange["groups"]));
 		setGroups(groupsChange);
+		setGroupID("");
 	};
 
 	return (
